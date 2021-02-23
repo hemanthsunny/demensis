@@ -9,7 +9,7 @@ function LoginComponent() {
 
   const login = async () => {
     await googleSignin();
-    history.push("/logout");
+    history.push("/app/results");
   }
 
   return (

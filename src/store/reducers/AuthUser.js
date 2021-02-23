@@ -11,7 +11,7 @@ const app = (state=INITIAL_STATE, action) => {
 		case SET_AUTH_USER: {
 			return {
 				...state,
-				currentUser: payload.authUser.providerData[0],
+				currentUser: payload.currentUser,
 				authUser: payload.authUser
 			}
 		}

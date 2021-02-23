@@ -13,7 +13,9 @@ function App({ currentUser, bindAuthUser }) {
   useEffect(() => {
     async function initUser() {
       await initFirebaseUser(bindAuthUser);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
     initUser();
   }, [bindAuthUser]);

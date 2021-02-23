@@ -52,3 +52,73 @@ export const signout = () => {
 		window.sessionStorage.setItem("token", "");
 	});
 };
+
+/* Common entries */
+export const arrayAdd = firebase.firestore.FieldValue.arrayUnion;
+export const arrayRemove = firebase.firestore.FieldValue.arrayRemove;
+export const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+
+/* Common code */
+function formatResult(status, message, data={}) {
+	return { status, message, data };
+}
+
+/* CRUD operations */
+export const add = (collection, data) => {
+	data['createdAt'] = new Date().getTime();
+	data['updatedAt'] = new Date().getTime();
+	return firestore.collection(collection).add(data)
+		.then(res => formatResult(200, 'Successfully created', res))
+		.catch(e => formatResult(500, 'Something went wrong'))
+}
+
+export const update = (collection, id, data) => {
+	data['updatedAt'] = new Date().getTime();
+	return firestore.collection(collection).doc(id).update(data)
+		.then((res) => formatResult(200, 'Successfully updated', res))
+		.catch(e => formatResult(422, e.message));
+}
+
+export const get = (collection, id="all") => {
+	let snapshot = firestore.collection(collection).get();
+
+	return snapshot.then((results) => {
+			let object = []
+			results.forEach(doc => {
+				object.push({
+					id: doc.id,
+					...doc.data()
+				})
+			});
+			return object.sort((a, b) => b.createdAt - a.createdAt);
+		})
+		.catch((err) => {
+			console.error(err);
+			return {error: err.code}
+		});
+}
+
+export const getQuery = (customQuery=null) => {
+	return customQuery.then((results) => {
+			let object = []
+			results.forEach(doc => {
+				object.push({
+					id: doc.id,
+					...doc.data()
+				})
+			});
+			return object.sort((a, b) => a.createdAt - b.createdAt);
+		})
+		.catch((err) => {
+			console.error(err);
+			return {error: err.code}
+		});
+}
+
+export const getId = (collection, id) => {
+	return firestore.collection(collection).doc(id).get()
+		.then(doc => doc.exists ? doc.data() : formatResult(404, "No data found"))
+		.catch((err) => formatResult(err.code, err.message));
+}
+
+export default firebase;
