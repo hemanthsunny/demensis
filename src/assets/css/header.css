@@ -1,0 +1,8 @@
+.navbar-fixed-top {
+  position: fixed;
+  width: 100%;
+}
+
+.pointer {
+  cursor: pointer;
+}

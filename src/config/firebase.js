@@ -22,12 +22,13 @@ export const storage = firebase.storage();
 export const firestore = fb.firestore();
 
 
-export const initFirebaseUser = () => {
+export const initFirebaseUser = (bindAuthUser) => {
 	auth.onAuthStateChanged(user => {
 		const isAuthenticated = user != null;
 		if (isAuthenticated) {
 			user.getIdToken().then(accessToken => {
 				user = user.toJSON();
+				bindAuthUser(user);
 				setToken(accessToken);
 			})
 		} else {
@@ -43,9 +44,7 @@ export const setToken = accessToken => {
 export const googleSignin = () => {
   let provider = new firebase.auth.GoogleAuthProvider();
   provider.addScope("https://www.googleapis.com/auth/plus.login");
-  return auth.signInWithPopup(provider).then(() => {
-    window.location.reload();
-  });
+  return auth.signInWithPopup(provider);
 }
 
 export const signout = () => {

@@ -1,24 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { HashRouter as Router } from "react-router-dom";
+import { connect } from "react-redux";
 
-import Routes from "./routes/Routes.js";
+import Routes from "routes/Routes.js";
+import { LoadingComponent } from "components";
 import { initFirebaseUser } from "./config/firebase";
+import { SetAuthUser } from "store/actions";
 
-function App() {
+function App({ currentUser, bindAuthUser }) {
+  const [ loading, setLoading ] = useState(true);
+
   useEffect(() => {
     async function initUser() {
-      await initFirebaseUser();
+      await initFirebaseUser(bindAuthUser);
+      setLoading(false);
     }
     initUser();
-  }, []);
+  }, [bindAuthUser]);
 
   return (
-    <div>
-      <Router>
-        <Routes />
-      </Router>
-    </div>
+    loading ? <LoadingComponent /> :
+    <Router>
+      <Routes />
+    </Router>
   )
 }
 
-export default App;
+const mapStateToProps = (state) => {
+	const { currentUser } = state.authUser;
+	return { currentUser };
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		bindAuthUser: (content) => dispatch(SetAuthUser(content))
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(App);

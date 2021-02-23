@@ -1,1 +1,1 @@
-export const SET_APP = "SET_APP";
+export const SET_AUTH_USER = "SET_AUTH_USER";
