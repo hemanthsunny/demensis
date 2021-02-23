@@ -1,4 +1,3 @@
-import fb from "firebase";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/storage";
@@ -15,11 +14,15 @@ const config = {
 	measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
-firebase.initializeApp(config);
+if (!firebase.apps.length) {
+   firebase.initializeApp(config);
+}else {
+   firebase.app(); // if already initialized, use that one
+}
 
 export const auth = firebase.auth();
 export const storage = firebase.storage();
-export const firestore = fb.firestore();
+export const firestore = firebase.firestore();
 
 
 export const initFirebaseUser = (bindAuthUser) => {
@@ -120,5 +123,3 @@ export const getId = (collection, id) => {
 		.then(doc => doc.exists ? doc.data() : formatResult(404, "No data found"))
 		.catch((err) => formatResult(err.code, err.message));
 }
-
-export default firebase;
