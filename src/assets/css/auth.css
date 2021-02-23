@@ -1,0 +1,10 @@
+.login-page-wrapper {
+  background-color: rgba(0, 0, 0, 0.015);
+  min-height: 100vh;
+  text-align: center;
+}
+
+.login-page-wrapper button {
+  position: relative;
+  top: calc(90vh/2);
+}
