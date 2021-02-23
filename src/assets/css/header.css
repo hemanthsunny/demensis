@@ -6,3 +6,7 @@
 .pointer {
   cursor: pointer;
 }
+
+.bg-light-dark {
+  background: rgba(0, 0, 0, 0.025);
+}

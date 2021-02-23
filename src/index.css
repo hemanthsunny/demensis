@@ -1,5 +1,7 @@
 @import "./assets/css/auth.css";
 @import "./assets/css/header.css";
+@import "./assets/css/new_pipeline.css";
+@import "./assets/css/results.css";
 
 body {
   margin: 0;

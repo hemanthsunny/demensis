@@ -15,7 +15,7 @@ const DefaultLayoutComponent = ({children}) => {
   return (
     <div>
       <HeaderComponent logout={logout} />
-    	<div className="mb-5">
+    	<div className="mb-5 pt-5 bg-light-dark">
   	  	{children}
     	</div>
     </div>

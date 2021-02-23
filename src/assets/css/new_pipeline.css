@@ -1,0 +1,15 @@
+.new-pipeline-wrapper .sub-header-steps .step {
+  border: 1px solid;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding-top: 6px;
+  opacity: 0.5;
+}
+
+.new-pipeline-wrapper .sub-header-steps .step.active {
+  color: white;
+  background-color: #3498db;
+  opacity: 1;
+}

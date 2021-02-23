@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 function HeaderComponent({ logout }) {
   return (
-    <nav className="navbar bg-primary navbar-fixed-top">
-      <div className="container">
+    <nav className="navbar bg-primary navbar-fixed-top" style={{position: "fixed", zIndex: "99"}}>
+      <div className="container-fluid">
         <div className="navbar-header">
           <div className="navbar-brand text-light">Project AD</div>
         </div>
