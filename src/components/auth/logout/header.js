@@ -11,8 +11,8 @@ function HeaderComponent() {
 
         <ul class="nav navbar-nav navbar-right flex-row">
           <li><Link to="/app/home" className="text-light mx-3">Start new</Link></li>
-          <li><Link to="/app/results" className="text-light mx-3">Results</Link></li>
-          <li><Link to="/app/results"className="text-light mx-2">Logout</Link></li>
+          <li><Link to="/app/dashboard" className="text-light mx-3">Results</Link></li>
+          <li><Link to="/app/dashboard"className="text-light mx-2">Logout</Link></li>
         </ul>
       </div>
     </nav>

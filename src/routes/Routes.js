@@ -5,7 +5,7 @@ import AuthRoute from "./index";
 import {
   LoginComponent,
   LogoutComponent,
-  ResultsComponent,
+  DashboardComponent,
   NewPipelineComponent
 } from "components";
 
@@ -14,7 +14,7 @@ const LandingComponent = () => {
 	if (!token) {
 		return (<Redirect to="/login" />)
 	}
-	return (<Redirect to="/app/results" />);
+	return (<Redirect to="/app/dashboard" />);
 };
 
 export const Routes = (props) => (
@@ -22,7 +22,7 @@ export const Routes = (props) => (
 		<Route exact path="/" component={LandingComponent} />
 		<Route path="/login" component={LoginComponent} />
 		<AuthRoute path="/logout" component={LogoutComponent} />
-    <AuthRoute path="/app/results" component={ResultsComponent} />
+    <AuthRoute path="/app/dashboard" component={DashboardComponent} />
     <AuthRoute path="/app/new_pipeline" component={NewPipelineComponent} />
 		<Redirect to="/" />
 	</Switch>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import HeaderComponent from "./header";
+import { StaticHeaderComponent } from "components";
 import { signout } from "config/firebase";
 
 function LoginComponent() {
@@ -14,7 +14,7 @@ function LoginComponent() {
 
   return (
     <div>
-      <HeaderComponent />
+      <StaticHeaderComponent />
       <div className="login-page-wrapper">
         Something went wrong :(
         <button className="btn btn-outline-primary" onClick={logout}>Logout</button>

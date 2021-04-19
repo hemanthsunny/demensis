@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import HeaderComponent from "./header";
+import { StaticHeaderComponent } from "components";
 import { googleSignin } from "../../../config/firebase";
 
 function LoginComponent() {
@@ -9,12 +9,12 @@ function LoginComponent() {
 
   const login = async () => {
     await googleSignin();
-    history.push("/app/results");
+    history.push("/app/dashboard");
   }
 
   return (
     <div>
-      <HeaderComponent />
+      <StaticHeaderComponent />
       <div className="login-page-wrapper">
         <button className="btn btn-outline-primary" onClick={login}>Login with Google</button>
       </div>

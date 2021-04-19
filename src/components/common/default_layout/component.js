@@ -15,7 +15,7 @@ const DefaultLayoutComponent = ({children}) => {
   return (
     <div>
       <HeaderComponent logout={logout} />
-    	<div className="mb-5 pt-5 bg-light-dark">
+    	<div className="pt-5 bg-light-dark" style={{minHeight: "120vh"}}>
   	  	{children}
     	</div>
     </div>

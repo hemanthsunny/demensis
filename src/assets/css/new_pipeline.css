@@ -1,3 +1,12 @@
+.new-pipeline-wrapper .page-header .page-title {
+  color: var(--color-gray-800);
+  text-align: center;
+}
+
+.new-pipeline-wrapper .page-header .page-divider {
+  width: 15%;
+}
+
 .new-pipeline-wrapper .sub-header-steps .step {
   border: 1px solid;
   border-radius: 50%;
@@ -9,7 +18,24 @@
 }
 
 .new-pipeline-wrapper .sub-header-steps .step.active {
-  color: white;
-  background-color: #3498db;
+  color: var(--color-white);
+  background-color: var(--color-blue-500);
   opacity: 1;
+}
+
+.new-pipeline-wrapper .collect-data-wrapper {
+  padding: var(--spacing-2) var(--spacing-32);
+  background-color: var(--color-white);
+}
+
+@media (min-width: 576px) {
+  .new-pipeline-wrapper .page-header .page-divider {
+    width: 5%;
+  }
+
+  .new-pipeline-wrapper .collect-data-wrapper {
+    margin: 0px auto;
+    padding: var(--spacing-32);
+    max-width: 60%;
+  }
 }

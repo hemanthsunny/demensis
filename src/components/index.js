@@ -3,7 +3,8 @@ import LogoutComponent from "./auth/logout/component";
 import LoadingComponent from "./common/loading/component";
 import DefaultLayoutComponent from "./common/default_layout/component";
 import ErrorComponent from "./common/error/component";
-import ResultsComponent from "./results/component";
+import StaticHeaderComponent from "./common/static_header/component";
+import DashboardComponent from "./dashboard/component";
 import NewPipelineComponent from "./new_pipeline/component";
 
 export {
@@ -12,6 +13,7 @@ export {
   LoadingComponent,
   DefaultLayoutComponent,
   ErrorComponent,
-  ResultsComponent,
+  StaticHeaderComponent,
+  DashboardComponent,
   NewPipelineComponent
 }

@@ -1,6 +1,24 @@
-.navbar-fixed-top {
-  position: fixed;
+.navbar {
   width: 100%;
+  background-color: var(--color-white);
+}
+
+.navbar .navbar-brand {
+  color: var(--color-blue-500);
+  font-size: var(--font-size-bigger);
+  font-weight: var(--font-weight-semi-bold);
+}
+
+.navbar .option {
+  font-size: var(--font-size) !important;
+  color: var(--color-blue-500) !important;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.navbar .option.-custom {
+  padding-top: 2px;
 }
 
 .pointer {
@@ -8,5 +26,13 @@
 }
 
 .bg-light-dark {
+  height: 100vh;
   background: rgba(0, 0, 0, 0.025);
+}
+
+@media (max-width: 576px) {
+  #navbarContent {
+    /* display: block; */
+    overflow-x: scroll;
+  }
 }

@@ -23,7 +23,7 @@ function SubmitComponent({ setStepNumber }) {
   }
 
   const startPipeline = () => {
-    history.push("/app/results");
+    history.push("/app/dashboard");
   }
 
   return (

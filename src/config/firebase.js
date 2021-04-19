@@ -71,7 +71,12 @@ export const add = (collection, data) => {
 	data['createdAt'] = new Date().getTime();
 	data['updatedAt'] = new Date().getTime();
 	return firestore.collection(collection).add(data)
-		.then(res => formatResult(200, 'Successfully created', res))
+		.then(res => {
+			return formatResult(200, 'Successfully created', {
+				id: res.id,
+				path: res.path
+			})
+		})
 		.catch(e => formatResult(500, 'Something went wrong'))
 }
 
