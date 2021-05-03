@@ -1,10 +1,49 @@
 .login-page-wrapper {
-  background-color: rgba(0, 0, 0, 0.015);
-  min-height: 100vh;
+  background-color: rgba(37, 34, 43, 1);
+  color: var(--color-white);
   text-align: center;
 }
 
-.login-page-wrapper button {
-  position: relative;
+.login-page-wrapper .bg-img {
+  background-image: url("assets/images/brain1.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100vh;
+  z-index: -1;
+  opacity: 0.5;
+  animation: scaleInOut 150s linear infinite;
+}
+
+.login-page-wrapper .bg-text {
+  width: 100%;
+  position: absolute;
   top: calc(90vh/2);
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.login-page-wrapper button {
+  background-color: var(--color-white) !important;
+  border-color: var(--color-white) !important;
+  border-radius: 0px;
+  padding: var(--spacing-12) var(--spacing-32);
+}
+
+@keyframes scaleInOut {
+  0% {
+    transform: scale(0.75);
+    /* transform: scale3d(1, 1, 1); */
+    background-position: 0 0;
+  }
+  50% {
+    /* transform: scale3d(-1.4, 0.4, 0.7); */
+    /* transform: scale3d(0.5, 1, 1.7); */
+    transform: scale(1.25);
+    background-position: 50% 50%;
+  }
+  100% {
+    transform: scale(0.75);
+    background-position: 0 0;
+  }
 }

@@ -66,7 +66,7 @@ function CollectDataComponent({ setStepNumber, currentUser }) {
       <div className="collect-data-wrapper my-4">
         <div className=" my-4">
           <label className="form-label">Age</label>
-          <input type="number" className="form-control" onChange={e => setSample({...sample, age: e.target.value})}/>
+          <input type="number" className="form-control" onChange={e => setSample({...sample, age: e.target.value})} placeholder="Ex. 45, 55..."/>
         </div>
         <div className="my-4">
           <label className="form-label">Gender</label>
@@ -77,11 +77,11 @@ function CollectDataComponent({ setStepNumber, currentUser }) {
         </div>
         <div className="my-4">
           <label className="form-label">Left Hippocampal Volume (in mm3)</label>
-          <input type="number" className="form-control" onChange={e => setSample({...sample, mean_lhv: e.target.value})}/>
+          <input type="number" className="form-control" onChange={e => setSample({...sample, mean_lhv: e.target.value})} placeholder="Ex. 2200, 2800..."/>
         </div>
         <div className="my-4">
           <label className="form-label">Right Hippocampal Volume (in mm3)</label>
-          <input type="number" className="form-control" onChange={e => setSample({...sample, mean_rhv: e.target.value})}/>
+          <input type="number" className="form-control" onChange={e => setSample({...sample, mean_rhv: e.target.value})} placeholder="Ex. 2500, 3000..."/>
         </div>
         <div className="d-none">
           <div className="text-center">

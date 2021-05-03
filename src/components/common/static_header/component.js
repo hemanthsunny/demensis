@@ -10,7 +10,7 @@ function ParentComponent({ logout }) {
     <nav className="navbar navbar-fixed-top" style={{position: "fixed", zIndex: "99"}}>
       <div className="container">
         <div className="navbar-header">
-          <div className="navbar-brand">Demensis</div>
+          <div className="navbar-brand">Demensis <small className="badge badge-secondary">beta</small></div>
         </div>
 
         <ul className="nav navbar-nav navbar-right flex-row">
