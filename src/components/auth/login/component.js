@@ -19,7 +19,7 @@ function LoginComponent() {
         <div className="bg-img"></div>
         <div className="bg-text">
           <h1 className="header">
-            Finding dementia is now easy, fast and inexpensive with AI.<br/> <br/>
+            Diagnosing dementia is now easy, fast and inexpensive with AI.<br/> <br/>
             <span className="sr-only">Keep your brain healthy and record all checkups in one place with the aid of AI</span>
             <span className="sr-only">Generate preliminary reports of your brain within seconds after your MRI scan. </span>
             <span className="sr-only">With the aid of Artificial Intelligence, generate preliminary reports dementia.</span>
