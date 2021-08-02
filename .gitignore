@@ -105,7 +105,5 @@ dist
 
 platforms/
 plugins/
-www/
-api/
 build/
 docs/
