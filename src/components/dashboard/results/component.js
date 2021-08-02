@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
+import { jsPDF } from "jspdf"
+import { JSDOM } from "jsdom"
 
 import { getQuery, firestore } from "config/firebase";
 
@@ -21,6 +23,67 @@ function ChildComponent({ currentUser }) {
       getResults();
     }
   }, [])
+
+  const downloadPdf = async (record) => {
+    console.log('res', record);
+    const htmlTemplate = (
+      <div className="card result-card my-4">
+        <div className="pipeline-name">
+          <div className="float-left">
+            Pipeline Number #3
+          </div>
+        </div>
+        <div className="d-flex flex-row">
+          <div className="py-2 created-at">
+            Created at: 21/02/2021 14:39
+          </div>
+          <div className="p-2 status">
+            Status: Completed
+          </div>
+        </div>
+        <div className="py-2 created-at">
+          Result: <b>Undetermined</b>
+        </div>
+        <div className="row result">
+          <div className="col-3 py-2 status">
+            Age: 64
+          </div>
+          <div className="col-3 py-2 status">
+            Gender: Male
+          </div>
+          <div className="col-6 py-2 status">
+            Left Hippocampal Volume: 1800mm<sup>3</sup>
+          </div>
+          <div className="col-6 py-2 status">
+            Right Hippocampal Volume: 2700mm<sup>3</sup>
+          </div>
+        </div>
+        <div className="row result pt-3">
+          <div className="col-4 py-2 status">
+            Accuracy: 30%
+          </div>
+          <div className="col-4 py-2 status">
+            Precision: 60%
+          </div>
+          <div className="col-4 py-2 status">
+            Significant difference (P): 0.4
+          </div>
+        </div>
+      </div>
+    )
+    const domHtml = new JSDOM(htmlTemplate, { contentType: "text/html" });
+    // global.window = domHtml.window;
+    // global.document = window.document;
+    // global.Node = window.Node;
+    const doc = new jsPDF("p", "pt", "a4");
+    await doc.html(
+      domHtml, {
+      callback: (pdf) => {
+        pdf.save(`demensis_report_${record.createdAt}.pdf`)
+      }
+    })
+    // doc.save(`demensis_report_${record.createdAt}.pdf`)
+  }
 
   return (
     <div className="result-wrapper">
@@ -55,7 +118,7 @@ function ChildComponent({ currentUser }) {
               <td>{res.precision}</td>
               <td>{res.significant_difference}</td>
               <td>
-                <button className="btn btn-outline-primary btn-sm">
+                <button className="btn btn-outline-primary btn-sm" onClick={e => downloadPdf(res)}>
                   <i className="fa fa-download"></i>
                 </button>
               </td>

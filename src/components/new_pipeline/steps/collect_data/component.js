@@ -5,11 +5,11 @@ import { add, update, timestamp } from 'config/firebase';
 
 function CollectDataComponent({ setStepNumber, currentUser }) {
   const [sample, setSample] = useState({gender: 'Male'})
-  const [saveBtn, setSaveBtn] = useState('Run Analysis')
+  const [saveBtn, setSaveBtn] = useState('Next')
   const history = useHistory()
 
   const subHeader = () => (
-    <div className="d-none flex-row justify-content-around sub-header-steps">
+    <div className="d-flex flex-row justify-content-around sub-header-steps">
       <div className="step active">
       1
       </div>
@@ -23,6 +23,7 @@ function CollectDataComponent({ setStepNumber, currentUser }) {
   );
 
   const next = () => {
+    setStepNumber(2)
     setSaveBtn('Hold on! we are analysing your result')
     // setStepNumber(2);
     fetch('/predict', {
@@ -50,7 +51,7 @@ function CollectDataComponent({ setStepNumber, currentUser }) {
         significant_difference: 0,
         timestamp
       })
-      setSaveBtn('Run Analysis')
+      setSaveBtn('Next')
       await update('results', result['id'], {status: 'completed'})
       history.push('/app/dashboard')
     })
@@ -58,11 +59,11 @@ function CollectDataComponent({ setStepNumber, currentUser }) {
 
   return (
     <div className="py-5">
-      <div className="page-header">
-        <h4 className="page-title">New Pipeline</h4>
+      {subHeader()}
+      <div className="page-header pt-5">
+        <h4 className="page-title">Basic Information</h4>
         <hr className="page-divider"/>
       </div>
-      {subHeader()}
       <div className="collect-data-wrapper my-4">
         <div className=" my-4">
           <label className="form-label">Age</label>
@@ -83,6 +84,13 @@ function CollectDataComponent({ setStepNumber, currentUser }) {
           <label className="form-label">Right Hippocampal Volume (in mm3)</label>
           <input type="number" className="form-control" onChange={e => setSample({...sample, mean_rhv: e.target.value})} placeholder="Ex. 2500, 3000..."/>
         </div>
+        <div className="my-4">
+          <label className="form-label">Select a pipeline/classifier</label>
+          <select className="form-control" onChange={e => setSample({...sample, pipeline: e.target.value})}>
+            <option value="svm" defaultValue>Support Vector Machine</option>
+            <option value="random_forest">Random Forest</option>
+          </select>
+        </div>
         <div className="d-none">
           <div className="text-center">
             <b>If you're unsure about the LHV and RHV values. Simply upload the MRI scan and the rest will be taken care of by us.</b>
@@ -95,7 +103,7 @@ function CollectDataComponent({ setStepNumber, currentUser }) {
         </div>
         <div className="text-center pb-4 pt-2">
           <button className="btn btn-outline-primary" onClick={next}>
-            <i className={`fa fa-spinner fa-spin ${saveBtn === 'Run Analysis' && 'd-none'}`}></i>&nbsp;{saveBtn}
+            <i className={`fa fa-spinner fa-spin ${saveBtn === 'Next' && 'd-none'}`}></i>&nbsp;{saveBtn}
           </button>
         </div>
       </div>
