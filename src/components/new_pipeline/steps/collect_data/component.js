@@ -4,8 +4,8 @@ import { useHistory } from "react-router-dom";
 import { add, update, timestamp } from 'config/firebase';
 
 function CollectDataComponent({ setStepNumber, currentUser }) {
-  const [sample, setSample] = useState({gender: 'Male'})
-  const [saveBtn, setSaveBtn] = useState('Next')
+  const [sample, setSample] = useState({gender: 'Male', pipeline: 'neural_network'})
+  const [saveBtn, setSaveBtn] = useState('Start Job')
   const history = useHistory()
 
   const subHeader = () => (
@@ -23,7 +23,19 @@ function CollectDataComponent({ setStepNumber, currentUser }) {
   );
 
   const next = () => {
-    setStepNumber(2)
+    if (!sample['age']) {
+      alert('Age is mandatory')
+      return;
+    }
+    if (!sample['mean_lhv']) {
+      alert('Left Hippocampal Volume is mandatory')
+      return;
+    }
+    if (!sample['mean_rhv']) {
+      alert('Right Hippocampal Volume is mandatory')
+      return;
+    }
+    // setStepNumber(2)
     setSaveBtn('Hold on! we are analysing your result')
     // setStepNumber(2);
     fetch('/predict', {
@@ -44,14 +56,15 @@ function CollectDataComponent({ setStepNumber, currentUser }) {
         mean_lhv_unit: 'mm<sup>3</sup>',
         mean_rhv_unit: 'mm<sup>3</sup>',
         fileUrl: null,
-        status: 'Pending',
+        status: 'Completed',
         result: data > 0.6 ? 'demented' : (data > 0.4 ? 'undetermined' : 'non-demented'),
         accuracy: data > 0.6 ? (data*100) : (data > 0.4 ? (data*100) : (100 - data*100)),
         precision: 0,
         significant_difference: 0,
+        pipeline: sample['pipeline'],
         timestamp
       })
-      setSaveBtn('Next')
+      setSaveBtn('Start Job')
       await update('results', result['id'], {status: 'completed'})
       history.push('/app/dashboard')
     })
@@ -59,34 +72,37 @@ function CollectDataComponent({ setStepNumber, currentUser }) {
 
   return (
     <div className="py-5">
-      {subHeader()}
+      {/*subHeader()*/}
       <div className="page-header pt-5">
         <h4 className="page-title">Basic Information</h4>
         <hr className="page-divider"/>
       </div>
       <div className="collect-data-wrapper my-4">
         <div className=" my-4">
-          <label className="form-label">Age</label>
+          <label className="form-label">Age<>*</></label>
           <input type="number" className="form-control" onChange={e => setSample({...sample, age: e.target.value})} placeholder="Ex. 45, 55..."/>
         </div>
         <div className="my-4">
-          <label className="form-label">Gender</label>
+          <label className="form-label">Gender<>*</></label>
           <select className="form-control" onChange={e => setSample({...sample, gender: e.target.value})}>
             <option value="M" defaultValue>Male</option>
             <option value="F">Female</option>
           </select>
         </div>
         <div className="my-4">
-          <label className="form-label">Left Hippocampal Volume (in mm3)</label>
+          <label className="form-label">Left Hippocampal Volume (in mm<sup>3</sup>)<>*</></label>
           <input type="number" className="form-control" onChange={e => setSample({...sample, mean_lhv: e.target.value})} placeholder="Ex. 2200, 2800..."/>
+          <small style={{ fontSize: '10px' }}>*It ranges between 2000mm<sup>3</sup> and 3500mm<sup>3</sup></small>
         </div>
         <div className="my-4">
-          <label className="form-label">Right Hippocampal Volume (in mm3)</label>
+          <label className="form-label">Right Hippocampal Volume (in mm<sup>3</sup>)<>*</></label>
           <input type="number" className="form-control" onChange={e => setSample({...sample, mean_rhv: e.target.value})} placeholder="Ex. 2500, 3000..."/>
+          <small style={{ fontSize: '10px' }}>*It ranges between 2000mm<sup>3</sup> and 3500mm<sup>3</sup></small>
         </div>
         <div className="my-4">
-          <label className="form-label">Select a pipeline/classifier</label>
+          <label className="form-label">Select a pipeline<>*</></label>
           <select className="form-control" onChange={e => setSample({...sample, pipeline: e.target.value})}>
+            <option value="neural_network">Neural network</option>
             <option value="svm" defaultValue>Support Vector Machine</option>
             <option value="random_forest">Random Forest</option>
           </select>
@@ -103,7 +119,7 @@ function CollectDataComponent({ setStepNumber, currentUser }) {
         </div>
         <div className="text-center pb-4 pt-2">
           <button className="btn btn-outline-primary" onClick={next}>
-            <i className={`fa fa-spinner fa-spin ${saveBtn === 'Next' && 'd-none'}`}></i>&nbsp;{saveBtn}
+            <i className={`fa fa-spinner fa-spin ${saveBtn === 'Start Job' && 'd-none'}`}></i>&nbsp;{saveBtn}
           </button>
         </div>
       </div>

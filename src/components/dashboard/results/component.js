@@ -5,6 +5,62 @@ import "jspdf-autotable";
 
 import { getQuery, firestore } from "config/firebase";
 
+const exportPdfRows = [
+  {
+    key: 'id',
+    title: 'Job id',
+    value: (v) => v.substring(0, 6)
+  },
+  {
+    key: 'age',
+    title: 'Age',
+    value: (v) => v
+  },
+  {
+    key: 'gender',
+    title: 'Gender',
+    value: (v) => v
+  },
+  {
+    key: 'mean_lhv',
+    title: 'Left Hippocampal Volume',
+    value: (v) => v + ' cubic millimeter'
+  },
+  {
+    key: 'mean_rhv',
+    title: 'Right Hippocampal Volume',
+    value: (v) => v + ' cubic millimeter'
+  },
+  {
+    key: 'pipeline',
+    title: 'Pipeline',
+    value: (v) => v.replace(/_/g, ' ').toUpperCase() || 'SVM'
+  },
+  {
+    key: 'result',
+    title: 'Result',
+    value: (v) => {
+      v = v[0].toUpperCase() + v.slice(1, v.length)
+      return v
+    }
+  },
+  {
+    key: 'accuracy',
+    title: 'Accuracy',
+    value: (v) => v +'%'
+  },
+  {
+    key: 'status',
+    title: 'Status',
+    value: (v) => v
+  },
+  {
+    key: 'createdAt',
+    title: 'Created at',
+    value: (v) => moment(v).format("YYYY/MM/DD HH:mm:ss")
+  }
+]
+
 function ChildComponent({ currentUser }) {
   const [ results, setResults ] = useState([]);
 
@@ -25,17 +81,16 @@ function ChildComponent({ currentUser }) {
   }, [])
 
   const downloadPdf = async (record) => {
-    console.log('res', record);
     // window.print()
     const doc = new jsPDF();
     const tableRows = [];
 
     // Reference: https://www.freecodecamp.org/news/how-to-create-pdf-reports-in-react/
-    Object.keys(record).forEach((key, idx) => {
+    exportPdfRows.map((row, idx) => {
       tableRows.push(
         [
-          key,
-          record[key]
+          row.title,
+          row.value(record[row.key])
         ]
       )
     });
@@ -68,7 +123,7 @@ function ChildComponent({ currentUser }) {
             <tr key={res.id}>
               <td className="text-center">{res.status === "pending" ? <i className="fa fa-spinner fa-spin"></i> : <i className="fa fa-check-circle text-success"></i> }</td>
               <td>{res.id.substring(0, 6)}</td>
-              <td>SVM</td>
+              <td>{res.pipeline ? res.pipeline.replace(/_/g, ' ').toUpperCase() : 'SVM'}</td>
               <td>{moment(res.createdAt).format("YYYY/MM/DD HH:mm:ss")}</td>
               <td className="text-capitalize">{res.result}</td>
               <td>{Math.round(res.accuracy)}%</td>

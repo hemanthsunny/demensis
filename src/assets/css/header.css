@@ -11,7 +11,7 @@
 
 .navbar .option {
   font-size: var(--font-size) !important;
-  color: var(--color-blue-500) !important;
+  color: var(--color-blue-500);
   text-transform: uppercase;
   text-decoration: none !important;
   cursor: pointer;
@@ -19,6 +19,10 @@
 
 .navbar .option.-custom {
   padding-top: 2px;
+}
+
+.navbar .option.-active {
+  color: var(--color-blue-400);
 }
 
 .pointer {

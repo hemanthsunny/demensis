@@ -15,7 +15,7 @@ function App({ currentUser, bindAuthUser }) {
       await initFirebaseUser(bindAuthUser);
       setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 5000);
     }
     initUser();
   }, [bindAuthUser]);
